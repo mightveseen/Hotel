@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="LogConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-4p] %d{HH:mm:ss yyyy-MM-dd} [%c{1}:%L] - %msg%n"/>
+        </Console>
+        <RollingFile name="LogFile" fileName="logging.log" filePattern="target/archive/rolling-%d{MM-dd-yy}.log.gz">
+            <PatternLayout pattern="[%-4p] %d{HH:mm:ss yyyy-MM-dd} [%c{1}:%L] - %msg%n"/>
+            <Policies>
+                <CronTriggeringPolicy schedule="0 0 0 **  **  ?"/>
+                <SizeBasedTriggeringPolicy size="50M"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache.log4j.xml" level="info"/>
+        <logger name="org.springframework.transaction" level="info"/>
+        <Root level="info">
+            <AppenderRef ref="LogFile"/>
+            <AppenderRef ref="LogConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>
